@@ -17,6 +17,7 @@
     "build:watch": "lerna run build:watch",
     "clean": "lerna clean && lerna run clean",
     "postinstall": "lerna bootstrap && yarn build && lerna link",
+    "publish-to-github": "lerna publish --conventional-commits",
     "typecheck": "lerna run typecheck"
   }
 }
