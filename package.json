@@ -1,0 +1,22 @@
+{
+  "name": "@taskade/eslint",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "lerna": "^3.20.2",
+    "typescript": "^3.8.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:taskade/eslint.git"
+  },
+  "scripts": {
+    "build": "lerna run build",
+    "build:watch": "lerna run build:watch",
+    "clean": "lerna clean && lerna run clean",
+    "postinstall": "lerna bootstrap && yarn build && lerna link",
+    "typecheck": "lerna run typecheck"
+  }
+}

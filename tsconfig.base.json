@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "sourceMap": true,
+    "strict": true,
+    /* https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping */
+    /* Node 10 */
+    "lib": ["es2018"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es2018"
+  }
+}
