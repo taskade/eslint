@@ -1,4 +1,7 @@
 export default {
+  env: {
+    es6: true,
+  },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   overrides: [
     {
