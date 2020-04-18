@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/taskade/eslint/compare/v0.1.1...v0.1.2) (2020-04-18)
+
+
+### Bug Fixes
+
+* Set `env.es6` to `true` ([a1f9916](https://github.com/taskade/eslint/commit/a1f99167ff4bc1336bfab4f2a89a5a72b7bb2022))
+
+
+
+
+
 ## [0.1.1](https://github.com/taskade/eslint/compare/v0.1.0...v0.1.1) (2020-04-18)
 
 
