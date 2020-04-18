@@ -3,6 +3,8 @@ export default {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'prettier/@typescript-eslint',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
     'plugin:@taskade/recommended',
     'plugin:prettier/recommended',
   ],
@@ -11,6 +13,14 @@ export default {
     ecmaVersion: 2018, // Node 10 and above
     sourceType: 'module',
   },
+  overrides: [
+    {
+      files: ['**/*.tsx'],
+      rules: {
+        'react/prop-types': 'off',
+      },
+    },
+  ],
   rules: {
     'prettier/prettier': [
       'warn',
@@ -25,5 +35,10 @@ export default {
         jsxBracketSameLine: false,
       },
     ],
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };

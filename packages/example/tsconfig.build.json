@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowJs": true,
     "composite": true,
+    "jsx": "react",
     "outDir": "./lib",
     "rootDir": "./src",
     "resolveJsonModule": true
