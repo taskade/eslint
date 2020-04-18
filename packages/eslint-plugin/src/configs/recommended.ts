@@ -1,6 +1,15 @@
 export default {
-  plugins: ['simple-import-sort'],
+  plugins: ['@typescript-eslint', 'simple-import-sort'],
+  overrides: [
+    {
+      files: ['**/*.js', '**/*.jsx'],
+      rules: {
+        '@typescript-eslint/explicit-function-return-type': 'off',
+      },
+    },
+  ],
   rules: {
+    '@typescript-eslint/camelcase': 'off', // NOTE: (stan@taskade.com) This rule is deprecated.
     eqeqeq: ['error', 'always', { null: 'never' }],
     'no-param-reassign': [
       'error',
