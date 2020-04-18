@@ -13,6 +13,7 @@ export default {
   ],
   rules: {
     '@typescript-eslint/camelcase': 'off', // NOTE: (stan@taskade.com) This rule is deprecated.
+    '@typescript-eslint/no-empty-function': 'off',
     eqeqeq: ['error', 'always', { null: 'never' }],
     'no-param-reassign': [
       'error',

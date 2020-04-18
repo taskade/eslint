@@ -13,3 +13,6 @@ export function getMapping() {
     renewed_at: 'renewedAt',
   };
 }
+
+// @typescript-eslint/no-empty-function rule is off
+export const emptyFunction = () => {};
