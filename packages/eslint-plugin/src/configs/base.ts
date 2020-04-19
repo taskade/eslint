@@ -12,6 +12,7 @@ export default {
   parserOptions: {
     ecmaVersion: 2018, // Node 10 and above
     sourceType: 'module',
+    useJSXTextNode: true,
   },
   overrides: [
     {
