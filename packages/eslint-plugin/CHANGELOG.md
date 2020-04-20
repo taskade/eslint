@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.5](https://github.com/taskade/eslint/compare/v0.1.4...v0.1.5) (2020-04-20)
+
+
+### Bug Fixes
+
+* Turn `@typescript-eslint/explicit-function-return-type` off ([9c67cec](https://github.com/taskade/eslint/commit/9c67cecd1020c72baf77740a4aa9b52a62f4f7fd))
+
+
+
+
+
 ## [0.1.4](https://github.com/taskade/eslint/compare/v0.1.3...v0.1.4) (2020-04-19)
 
 
