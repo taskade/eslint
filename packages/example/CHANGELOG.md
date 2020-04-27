@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.7](https://github.com/taskade/eslint/compare/v0.1.6...v0.1.7) (2020-04-27)
+
+
+### Bug Fixes
+
+* Recommend `@typescript-eslint/strict-boolean-expressions` ([ac84b4c](https://github.com/taskade/eslint/commit/ac84b4cbafc9e8c3b774920ae001bf2d12063044))
+* Turn `@typescript-eslint/member-ordering` on ([ec3782c](https://github.com/taskade/eslint/commit/ec3782cf78487ade4401b4c7ef9c33d73b738405))
+
+
+
+
+
 ## [0.1.6](https://github.com/taskade/eslint/compare/v0.1.5...v0.1.6) (2020-04-27)
 
 **Note:** Version bump only for package @taskade/example
