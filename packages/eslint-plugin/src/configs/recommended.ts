@@ -24,6 +24,7 @@ export default {
         ignorePropertyModificationsForRegex: ['^draft'],
       },
     ],
+    'no-shadow': 'warn',
     'sort-imports': 'off',
     'import/order': 'off',
     'simple-import-sort/sort': 'warn',
