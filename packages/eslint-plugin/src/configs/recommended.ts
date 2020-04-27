@@ -16,6 +16,7 @@ export default {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     eqeqeq: ['error', 'always', { null: 'never' }],
+    'no-implicit-coercion': 'error',
     'no-param-reassign': [
       'error',
       {
