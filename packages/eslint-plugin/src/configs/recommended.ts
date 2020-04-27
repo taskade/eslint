@@ -80,6 +80,8 @@ export default {
       },
     ],
     '@typescript-eslint/no-empty-function': 'off',
+    // NOTE :(stan@taskade.com) Commented away due to additional configuration (`parserOptions.project`) needed.
+    // '@typescript-eslint/strict-boolean-expressions': 'error',
     eqeqeq: ['error', 'always', { null: 'never' }],
     'no-implicit-coercion': 'error',
     'no-param-reassign': [

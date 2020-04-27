@@ -17,3 +17,7 @@ function reassignParam(draft: ReassignParamOptions): void {
   draft.value = 'true';
 }
 reassignParam({});
+
+if (hello != null) {
+  console.log('TRUE');
+}

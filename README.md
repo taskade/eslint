@@ -13,3 +13,20 @@ yarn build:watch
 ```
 
 Go to `packages/example` and test out the ESLint rules
+
+## Additional Configurations Recommended
+
+### [`@typescript-eslint/strict-boolean-expressions`](https://github.com/typescript-eslint/typescript-eslint/blob/master/packages/eslint-plugin/docs/rules/strict-boolean-expressions.md)
+
+Not on by default due to additional configuration (`parserOptions.project`) needed.
+
+```json
+{
+  "rules": {
+    "@typescript-eslint/strict-boolean-expressions": "error"
+  },
+  "parserOptions": {
+    "project": "tsconfig.json"
+  }
+}
+```
