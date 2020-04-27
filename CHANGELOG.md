@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.6](https://github.com/taskade/eslint/compare/v0.1.5...v0.1.6) (2020-04-27)
+
+
+### Bug Fixes
+
+* Turn `no-implicit-coercion` on ([4482dec](https://github.com/taskade/eslint/commit/4482decf40923a2f315e2dd2628e83a0a8a8f18b))
+* Warn for `no-shadow` rule ([5f8f84c](https://github.com/taskade/eslint/commit/5f8f84cd3ddb72dbcb89b843d18a6addb9982830))
+
+
+
+
+
 ## [0.1.5](https://github.com/taskade/eslint/compare/v0.1.4...v0.1.5) (2020-04-20)
 
 
