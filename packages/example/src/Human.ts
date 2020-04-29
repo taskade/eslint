@@ -11,6 +11,11 @@ class Human {
     this.name = desc.name;
     this.age = desc.age;
   }
+
+  eat(): void;
+  eat(food?: string) {
+    console.log(`${this.name} eating ${food ?? 'Food'}`);
+  }
 }
 
 export default Human;
