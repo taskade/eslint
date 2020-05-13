@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.10](https://github.com/taskade/eslint/compare/v0.1.9...v0.1.10) (2020-05-13)
+
+
+### Bug Fixes
+
+* Add curly and TS brace-style rule ([b03f1c7](https://github.com/taskade/eslint/commit/b03f1c7a85ff8e47cac8d391a91e4cb0a9e3331c))
+
+
+
+
+
 ## [0.1.9](https://github.com/taskade/eslint/compare/v0.1.8...v0.1.9) (2020-05-02)
 
 
