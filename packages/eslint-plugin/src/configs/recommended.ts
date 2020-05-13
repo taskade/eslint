@@ -12,6 +12,8 @@ export default {
     },
   ],
   rules: {
+    'brace-style': 'off',
+    '@typescript-eslint/brace-style': ['error', '1tbs', { allowSingleLine: false }],
     '@typescript-eslint/camelcase': 'off', // NOTE: (stan@taskade.com) This rule is deprecated.
     '@typescript-eslint/explicit-function-return-type': 'off',
     'no-dupe-class-members': 'off',
@@ -19,6 +21,7 @@ export default {
     '@typescript-eslint/no-empty-function': 'off',
     // NOTE :(stan@taskade.com) Commented away due to additional configuration (`parserOptions.project`) needed.
     // '@typescript-eslint/strict-boolean-expressions': 'error',
+    curly: ['error', 'all'],
     eqeqeq: ['error', 'always', { null: 'never' }],
     'no-implicit-coercion': 'error',
     'no-param-reassign': [

@@ -5,8 +5,8 @@ export default {
     'prettier/@typescript-eslint',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
-    'plugin:@taskade/recommended',
     'plugin:prettier/recommended',
+    'plugin:@taskade/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
