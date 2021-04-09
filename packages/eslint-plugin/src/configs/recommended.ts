@@ -8,6 +8,7 @@ export default {
       files: ['**/*.js', '**/*.jsx'],
       rules: {
         '@typescript-eslint/explicit-function-return-type': 'off',
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
       },
     },
   ],
@@ -16,6 +17,7 @@ export default {
     '@typescript-eslint/brace-style': ['error', '1tbs', { allowSingleLine: false }],
     '@typescript-eslint/camelcase': 'off', // NOTE: (stan@taskade.com) This rule is deprecated.
     '@typescript-eslint/explicit-function-return-type': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
     'no-dupe-class-members': 'off',
     '@typescript-eslint/no-dupe-class-members': ['error'],
     '@typescript-eslint/no-empty-function': 'off',
@@ -34,6 +36,7 @@ export default {
     'no-shadow': 'warn',
     'sort-imports': 'off',
     'import/order': 'off',
-    'simple-import-sort/sort': 'warn',
+    'simple-import-sort/exports': 'warn',
+    'simple-import-sort/imports': 'warn',
   },
 };

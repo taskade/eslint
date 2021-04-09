@@ -1,6 +1,6 @@
 /* global console */
 
-// simple-import-sort/sort rule
+// simple-import-sort/imports rule
 import goodbye from './goodbye';
 import hello from './hello';
 

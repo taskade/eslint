@@ -2,10 +2,10 @@ import React from 'react';
 
 import goodbye from './goodbye';
 
-type ButtonProps = {
+interface Props {
   isActive: boolean;
-};
-const Button: React.FC<ButtonProps> = function (props) {
+}
+const Button: React.FC<Props> = function (props) {
   const { isActive } = props;
   return <button disabled={!isActive}>{goodbye}</button>;
 };
