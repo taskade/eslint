@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/taskade/eslint/compare/v0.1.10...v0.2.0) (2021-04-09)
+
+
+* fix!: Upgrade to TypeScript 4.2 + Improve usage pattern (PR #8) ([e1c1c40](https://github.com/taskade/eslint/commit/e1c1c40e01e3f41e020a38bac239f3619a531e40)), closes [#8](https://github.com/taskade/eslint/issues/8)
+
+
+### BREAKING CHANGES
+
+* Change to configuration for ESLint and related packages are likely required.
+
+
+
+
+
 ## [0.1.10](https://github.com/taskade/eslint/compare/v0.1.9...v0.1.10) (2020-05-13)
 
 **Note:** Version bump only for package @taskade/example
