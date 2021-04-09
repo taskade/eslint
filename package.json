@@ -5,8 +5,8 @@
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^3.20.2",
-    "typescript": "^3.8.3"
+    "lerna": "^4.0.0",
+    "typescript": "^4.2.4"
   },
   "repository": {
     "type": "git",
@@ -16,7 +16,7 @@
     "build": "lerna run build",
     "build:watch": "lerna run build:watch",
     "clean": "lerna clean && lerna run clean",
-    "postinstall": "lerna bootstrap && yarn build && lerna link",
+    "postinstall": "lerna bootstrap && npm run build && lerna link",
     "publish-to-github": "lerna publish --conventional-commits",
     "typecheck": "lerna run typecheck"
   }

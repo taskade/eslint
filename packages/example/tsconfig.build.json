@@ -3,6 +3,7 @@
   "compilerOptions": {
     "allowJs": true,
     "composite": true,
+    "lib": ["DOM", "ES2018"],
     "jsx": "react",
     "outDir": "./lib",
     "rootDir": "./src",

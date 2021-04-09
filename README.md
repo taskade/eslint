@@ -3,13 +3,13 @@
 ## Getting Started
 
 ```sh
-yarn add @taskade/eslint-plugin --dev
+npm install --save-dev @taskade/eslint-plugin
 ```
 
 ## To Develop
 
 ```sh
-yarn build:watch
+npm run build:watch
 ```
 
 Go to `packages/example` and test out the ESLint rules
