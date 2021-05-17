@@ -21,6 +21,8 @@ export default {
     'no-dupe-class-members': 'off',
     '@typescript-eslint/no-dupe-class-members': ['error'],
     '@typescript-eslint/no-empty-function': 'off',
+    'no-shadow': 'off',
+    '@typescript-eslint/no-shadow': 'warn',
     // NOTE :(stan@taskade.com) Commented away due to additional configuration (`parserOptions.project`) needed.
     // '@typescript-eslint/strict-boolean-expressions': 'error',
     curly: ['error', 'all'],
@@ -33,7 +35,6 @@ export default {
         ignorePropertyModificationsForRegex: ['^draft'],
       },
     ],
-    'no-shadow': 'warn',
     'sort-imports': 'off',
     'import/order': 'off',
     'simple-import-sort/exports': 'warn',

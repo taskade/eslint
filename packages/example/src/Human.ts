@@ -1,6 +1,12 @@
+enum Gender {
+  Female,
+  Male,
+}
+
 interface HumanDesc {
   age: number;
   name: string;
+  gender: Gender;
 }
 
 class Human {
