@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.1](https://github.com/taskade/eslint/compare/v0.2.0...v0.2.1) (2021-05-17)
+
+
+### Bug Fixes
+
+* Conflict of no-shadow causing false positive report on enum (typescript-eslint/typescript-eslint[#2483](https://github.com/taskade/eslint/issues/2483)) ([7c6b10a](https://github.com/taskade/eslint/commit/7c6b10a396b5380bb99cde763dfe05e621eb5b97))
+
+
+
+
+
 # [0.2.0](https://github.com/taskade/eslint/compare/v0.1.10...v0.2.0) (2021-04-09)
 
 
