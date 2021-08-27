@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/taskade/eslint/compare/v0.2.1...v0.2.2) (2021-08-27)
+
+
+### Bug Fixes
+
+* **deps:** Upgrade dependencies ([be20826](https://github.com/taskade/eslint/commit/be20826bda1e3da498eb661f774bc79cd2eb8ce7))
+
+
+
+
+
 ## [0.2.1](https://github.com/taskade/eslint/compare/v0.2.0...v0.2.1) (2021-05-17)
 
 

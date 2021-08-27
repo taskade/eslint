@@ -1,9 +1,9 @@
 {
   "name": "@taskade/example",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "devDependencies": {
-    "@taskade/eslint-plugin": "^0.2.1",
+    "@taskade/eslint-plugin": "^0.2.2",
     "@types/react": "^16.9.34"
   },
   "dependencies": {
