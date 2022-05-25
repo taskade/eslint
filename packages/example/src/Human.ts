@@ -3,7 +3,7 @@ enum Gender {
   Male,
 }
 
-interface HumanDesc {
+export interface HumanDesc {
   age: number;
   name: string;
   gender: Gender;
