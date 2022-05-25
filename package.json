@@ -17,7 +17,8 @@
     "build:watch": "lerna run build:watch",
     "clean": "lerna clean && lerna run clean",
     "postinstall": "lerna bootstrap && npm run build && lerna link",
-    "publish-to-github": "lerna publish --conventional-commits",
+    "publish:github": "lerna publish --conventional-commits",
+    "publish:manually": "lerna exec --no-private -- npm publish",
     "typecheck": "lerna run typecheck"
   }
 }
