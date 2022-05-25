@@ -4,8 +4,7 @@
   "private": true,
   "devDependencies": {
     "@taskade/eslint-plugin": "^0.2.2",
-    "@types/react": "^16.9.34",
-    "@typescript-eslint/eslint-plugin": "^5.26.0"
+    "@types/react": "^16.9.34"
   },
   "dependencies": {
     "react": "^16.13.1"
