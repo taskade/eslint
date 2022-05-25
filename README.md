@@ -3,7 +3,7 @@
 ## Getting Started
 
 ```sh
-npm install --save-dev @taskade/eslint-plugin @typescript-eslint/eslint-plugin
+npm install --save-dev @taskade/eslint-plugin
 ```
 
 ## To Develop
