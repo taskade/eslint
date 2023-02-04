@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/taskade/eslint/compare/v0.3.0...v0.3.1) (2023-02-04)
+
+
+### Bug Fixes
+
+* **deps:** Upgrade to TypeScript to v4.9 ([500bd2f](https://github.com/taskade/eslint/commit/500bd2f9375b014a8d0748380158c08127f82c2a))
+
+
+
+
+
 # [0.3.0](https://github.com/taskade/eslint/compare/v0.2.2...v0.3.0) (2022-05-25)
 
 
