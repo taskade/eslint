@@ -1,8 +1,18 @@
 {
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    },
+    "version": {
+      "message": "chore(release): Publish %v"
+    }
+  },
   "npmClient": "npm",
   "packages": [
     "packages/*"
   ],
   "stream": true,
-  "version": "0.3.1"
+  "version": "0.3.1",
+  "useNx": true
 }
