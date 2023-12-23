@@ -1,7 +1,6 @@
+import { ESLint } from 'eslint';
+
 export default {
-  env: {
-    es6: true,
-  },
   plugins: ['@typescript-eslint', 'simple-import-sort'],
   overrides: [
     {
@@ -40,4 +39,4 @@ export default {
     'simple-import-sort/exports': 'warn',
     'simple-import-sort/imports': 'warn',
   },
-};
+} satisfies ESLint.ConfigData;

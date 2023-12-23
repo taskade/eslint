@@ -4,6 +4,5 @@
     "packages/*"
   ],
   "stream": true,
-  "useWorkspaces": true,
   "version": "0.3.1"
 }
