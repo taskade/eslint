@@ -1,15 +1,22 @@
+import { ESLint } from 'eslint';
+
 export default {
+  env: {
+    es2020: true,
+  },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:react-hooks/recommended',
+    // Turns off all rules that are unnecessary or might conflict with Prettier.
     'plugin:prettier/recommended',
     'plugin:@taskade/recommended',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2018, // Node 10 and above
+    // https://node.green/#ES2020
+    ecmaVersion: 2020,
     sourceType: 'module',
     useJSXTextNode: true,
   },
@@ -41,4 +48,4 @@ export default {
       version: 'detect',
     },
   },
-};
+} satisfies ESLint.ConfigData;
