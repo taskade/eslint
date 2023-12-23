@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/taskade/eslint/compare/v0.3.1...v0.4.0) (2023-12-23)
+
+
+### Features
+
+* **deps:** Upgrade TypeScript to v5.3, Prettier to v3, Lerna to v8 and bump env to ES2020 ([#21](https://github.com/taskade/eslint/issues/21)) ([eda981a](https://github.com/taskade/eslint/commit/eda981a88b25383d87f561496e60cd72363a6dba))
+
+
+
+
+
 ## [0.3.1](https://github.com/taskade/eslint/compare/v0.3.0...v0.3.1) (2023-02-04)
 
 
