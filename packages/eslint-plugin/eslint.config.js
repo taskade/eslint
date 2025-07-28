@@ -7,7 +7,10 @@ export default [
   js.configs.recommended,
   ...tsEslint.configs.recommended,
   {
-    files: ['**/*.{js,jsx,ts,tsx}'],
+    ignores: ['dist/**', 'node_modules/**'],
+  },
+  {
+    files: ['src/**/*.{ts,tsx}'],
     plugins: {
       '@taskade': taskadePlugin,
       'prettier': prettierPlugin,
@@ -25,6 +28,15 @@ export default [
       // Use only the basic rules from our plugin for now
       ...taskadePlugin.configs.base.rules,
       '@typescript-eslint/strict-boolean-expressions': 'error',
+    },
+  },
+  {
+    files: ['scripts/**/*.{js,mjs}', '*.{js,mjs}'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        process: 'readonly',
+      },
     },
   },
 ]; 

@@ -1,5 +1,5 @@
-import base from './configs/base';
-import recommended from './configs/recommended';
+import base from './configs/base.js';
+import recommended from './configs/recommended.js';
 
 const plugin = {
   meta: {

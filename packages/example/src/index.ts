@@ -1,9 +1,9 @@
 /* global console */
 
 // simple-import-sort/imports rule
-import goodbye from './goodbye';
-import hello from './hello';
-import type { HumanDesc } from './Human';
+import goodbye from './goodbye.js';
+import hello from './hello.js';
+import type { HumanDesc } from './Human.js';
 
 // eqeqeq rule, always for all, never for null
 if (hello == null) {
