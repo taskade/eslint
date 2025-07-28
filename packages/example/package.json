@@ -1,10 +1,18 @@
 {
   "name": "@taskade/example",
   "version": "0.4.0",
+  "type": "module",
   "private": true,
   "devDependencies": {
+    "@eslint/js": "^9.0.0",
     "@taskade/eslint-plugin": "^0.4.0",
-    "@types/react": "^16.14.54"
+    "@types/react": "^16.14.54",
+    "eslint": "^9.0.0",
+    "eslint-plugin-prettier": "^5.2.0",
+    "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
+    "prettier": "^3.3.0",
+    "typescript-eslint": "^8.0.0"
   },
   "dependencies": {
     "react": "^16.14.0"

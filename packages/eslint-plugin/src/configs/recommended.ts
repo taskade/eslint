@@ -1,16 +1,8 @@
-import { ESLint } from 'eslint';
-
 export default {
-  plugins: ['@typescript-eslint', 'simple-import-sort'],
-  overrides: [
-    {
-      files: ['**/*.js', '**/*.jsx'],
-      rules: {
-        '@typescript-eslint/explicit-function-return-type': 'off',
-        '@typescript-eslint/explicit-module-boundary-types': 'off',
-      },
-    },
-  ],
+  files: ['**/*.{js,jsx,ts,tsx}'],
+  languageOptions: {
+    sourceType: 'module',
+  },
   rules: {
     'brace-style': 'off',
     '@typescript-eslint/brace-style': ['error', '1tbs', { allowSingleLine: false }],
@@ -39,4 +31,4 @@ export default {
     'simple-import-sort/exports': 'warn',
     'simple-import-sort/imports': 'warn',
   },
-} satisfies ESLint.ConfigData;
+} as const;
