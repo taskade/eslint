@@ -40,6 +40,38 @@ export default [
 ];
 ```
 
+### Usage for Non-React Projects
+
+For projects that don't use React (like Node.js libraries, CLI tools, etc.), use the `base-no-react` configuration:
+
+```javascript
+// eslint.config.js
+import js from '@eslint/js';
+import typescriptEslint from 'typescript-eslint';
+import taskade from '@taskade/eslint-plugin';
+
+export default [
+  js.configs.recommended,
+  ...typescriptEslint.configs.recommended,
+  {
+    files: ['**/*.{js,ts}'], // Note: no jsx/tsx files
+    plugins: {
+      '@taskade': taskade,
+    },
+    languageOptions: {
+      parser: typescriptEslint.parser,
+      parserOptions: {
+        project: './tsconfig.json',
+      },
+    },
+    rules: {
+      ...taskade.configs['base-no-react'].rules,
+      // Add custom overrides here
+    },
+  },
+];
+```
+
 ### Using Recommended Configuration
 
 ```javascript
@@ -73,6 +105,9 @@ export default [
 
 ### base
 Base configuration with Prettier and React support.
+
+### base-no-react
+Base configuration with Prettier support but without React dependencies. Ideal for Node.js projects, libraries, or any TypeScript/JavaScript projects that don't use React.
 
 ### recommended  
 Additional TypeScript and import sorting rules for enhanced code quality.
