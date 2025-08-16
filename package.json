@@ -6,7 +6,7 @@
   ],
   "devDependencies": {
     "lerna": "^8.2.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.0"
   },
   "repository": {
     "type": "git",
