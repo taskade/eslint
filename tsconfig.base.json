@@ -10,13 +10,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "pretty": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
-    /* https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping */
-    /* Node 10 */
-    "lib": ["es2018"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "target": "es2018"
+    /* https://github.com/microsoft/TypeScript/wiki/Node-Target-Mapping#node-18 */
+    "lib": ["ES2022"],
+    "module": "nodenext",
+    "target": "ES2022"
   }
 }

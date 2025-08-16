@@ -1,9 +1,15 @@
-import base from './configs/base';
-import recommended from './configs/recommended';
+import base from './configs/base.js';
+import recommended from './configs/recommended.js';
 
-export = {
+const plugin = {
+  meta: {
+    name: '@taskade/eslint-plugin',
+    version: '0.4.0',
+  },
   configs: {
     base,
     recommended,
   },
 };
+
+export default plugin;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import goodbye from './goodbye';
+import goodbye from './goodbye.js';
 
 interface Props {
   isActive: boolean;

@@ -1,9 +1,0 @@
-{
-  "extends": "plugin:@taskade/base",
-  "parserOptions": {
-    "project": "packages/example/tsconfig.json"
-  },
-  "rules": {
-    "@typescript-eslint/strict-boolean-expressions": "error"
-  }
-}
