@@ -1,0 +1,185 @@
+name: Publish Packages
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run a dry-run without actually publishing'
+        required: false
+        default: 'false'
+        type: boolean
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies (no postinstall)
+        run: npm ci --ignore-scripts
+
+      - name: Build packages
+        run: npm run build
+        continue-on-error: false
+
+      - name: Build fallback (esbuild only)
+        if: failure()
+        run: |
+          echo "Full build failed, attempting esbuild-only build..."
+          cd packages/eslint-plugin
+          node scripts/build.mjs
+          echo "esbuild completed successfully"
+
+      - name: Verify build artifacts
+        run: |
+          echo "Checking build artifacts..."
+          ls -la packages/eslint-plugin/dist/
+          test -f packages/eslint-plugin/dist/index.cjs || (echo "Missing CommonJS build" && exit 1)
+          test -f packages/eslint-plugin/dist/index.mjs || (echo "Missing ESM build" && exit 1)
+          test -d packages/eslint-plugin/dist/types || (echo "Missing type declarations" && exit 1)
+
+      - name: Get package version
+        id: package-version
+        run: |
+          VERSION=$(node -p "require('./packages/eslint-plugin/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Package version: $VERSION"
+
+      - name: Check if version exists on npm
+        id: npm-version-check
+        run: |
+          PACKAGE_NAME="@taskade/eslint-plugin"
+          VERSION="${{ steps.package-version.outputs.version }}"
+          
+          if npm view "$PACKAGE_NAME@$VERSION" version 2>/dev/null; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "Version $VERSION already exists on npm"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+            echo "Version $VERSION does not exist on npm"
+          fi
+
+      - name: Setup npm for npmjs.com
+        if: steps.npm-version-check.outputs.exists == 'false'
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
+
+      - name: Publish to npmjs.com (with retry)
+        if: steps.npm-version-check.outputs.exists == 'false'
+        run: |
+          cd packages/eslint-plugin
+          
+          # Temporarily update publishConfig for npmjs.com
+          node -e "
+            const pkg = require('./package.json');
+            delete pkg.publishConfig.registry;
+            require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          
+          # Publish with retry logic
+          MAX_ATTEMPTS=3
+          ATTEMPT=1
+          
+          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+            echo "Attempt $ATTEMPT of $MAX_ATTEMPTS to publish to npmjs.com..."
+            
+            if [ "${{ inputs.dry_run }}" = "true" ]; then
+              echo "DRY RUN: Would publish to npmjs.com"
+              npm publish --dry-run --provenance --access public
+              break
+            else
+              if npm publish --provenance --access public; then
+                echo "Successfully published to npmjs.com"
+                break
+              else
+                echo "Attempt $ATTEMPT failed"
+                if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+                  echo "All attempts failed"
+                  exit 1
+                fi
+                ATTEMPT=$((ATTEMPT + 1))
+                sleep 10
+              fi
+            fi
+          done
+
+      - name: Setup npm for GitHub Packages
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+          echo "@taskade:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+
+      - name: Publish to GitHub Packages (with retry)
+        run: |
+          cd packages/eslint-plugin
+          
+          # Restore publishConfig for GitHub Packages
+          node -e "
+            const pkg = require('./package.json');
+            pkg.publishConfig = { registry: 'https://npm.pkg.github.com/' };
+            require('fs').writeFileSync('./package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+          
+          # Publish with retry logic
+          MAX_ATTEMPTS=3
+          ATTEMPT=1
+          
+          while [ $ATTEMPT -le $MAX_ATTEMPTS ]; do
+            echo "Attempt $ATTEMPT of $MAX_ATTEMPTS to publish to GitHub Packages..."
+            
+            if [ "${{ inputs.dry_run }}" = "true" ]; then
+              echo "DRY RUN: Would publish to GitHub Packages"
+              npm publish --dry-run
+              break
+            else
+              if npm publish; then
+                echo "Successfully published to GitHub Packages"
+                break
+              else
+                echo "Attempt $ATTEMPT failed"
+                if [ $ATTEMPT -eq $MAX_ATTEMPTS ]; then
+                  echo "All attempts failed"
+                  exit 1
+                fi
+                ATTEMPT=$((ATTEMPT + 1))
+                sleep 10
+              fi
+            fi
+          done
+
+      - name: Create summary
+        run: |
+          echo "## Publish Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Package:** @taskade/eslint-plugin" >> $GITHUB_STEP_SUMMARY
+          echo "**Version:** ${{ steps.package-version.outputs.version }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            echo "**Mode:** Dry run (no actual publishing)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Published to:**" >> $GITHUB_STEP_SUMMARY
+            if [ "${{ steps.npm-version-check.outputs.exists }}" = "false" ]; then
+              echo "- ✅ npmjs.com (with provenance)" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- ⏭️ npmjs.com (version already exists)" >> $GITHUB_STEP_SUMMARY
+            fi
+            echo "- ✅ GitHub Packages" >> $GITHUB_STEP_SUMMARY
+          fi
