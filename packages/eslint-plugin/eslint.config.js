@@ -1,42 +1,49 @@
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import js from '@eslint/js';
-import tsEslint from 'typescript-eslint';
+import stylisticPlugin from '@stylistic/eslint-plugin';
 import taskadePlugin from '@taskade/eslint-plugin';
 import prettierPlugin from 'eslint-plugin-prettier';
+import simpleImportSortPlugin from 'eslint-plugin-simple-import-sort';
+import tsEslint from 'typescript-eslint';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default [
   js.configs.recommended,
   ...tsEslint.configs.recommended,
   {
-    ignores: ['dist/**', 'node_modules/**'],
+    ignores: ['dist/**', 'lib/**', 'node_modules/**'],
   },
   {
-    files: ['src/**/*.{ts,tsx}'],
+    files: ['**/*.{js,jsx,mjs,ts,tsx}'],
     plugins: {
       '@taskade': taskadePlugin,
-      'prettier': prettierPlugin,
+      prettier: prettierPlugin,
+      '@stylistic': stylisticPlugin,
+      'simple-import-sort': simpleImportSortPlugin,
     },
     languageOptions: {
       parser: tsEslint.parser,
       parserOptions: {
-        project: './tsconfig.json',
+        project: true,
+        tsconfigRootDir: __dirname,
         ecmaFeatures: {
           jsx: true,
         },
+      },
+      globals: {
+        process: 'readonly',
+        console: 'readonly',
       },
     },
     rules: {
       // Use only the basic rules from our plugin for now
       ...taskadePlugin.configs.base.rules,
+      ...taskadePlugin.configs.recommended.rules,
       '@typescript-eslint/strict-boolean-expressions': 'error',
     },
   },
-  {
-    files: ['scripts/**/*.{js,mjs}', '*.{js,mjs}'],
-    languageOptions: {
-      globals: {
-        console: 'readonly',
-        process: 'readonly',
-      },
-    },
-  },
-]; 
+];

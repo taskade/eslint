@@ -1,6 +1,7 @@
 import base from './configs/base.js';
 import baseNoReact from './configs/base-no-react.js';
 import recommended from './configs/recommended.js';
+import rules from './rules/index.js';
 
 const plugin = {
   meta: {
@@ -12,6 +13,7 @@ const plugin = {
     'base-no-react': baseNoReact,
     recommended,
   },
+  rules,
 };
 
 export default plugin;
