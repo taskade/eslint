@@ -1,10 +1,78 @@
-# GitHub Actions Publish Workflow
+# Package Release & Publishing Workflows
 
-This repository includes a GitHub Actions workflow that automatically publishes packages to both npmjs.com and GitHub Packages when a release is created.
+This repository includes comprehensive GitHub Actions workflows for package versioning and publishing to both npmjs.com and GitHub Packages using Changesets for version management.
 
 ## Overview
 
-The workflow is located at `.github/workflows/publish.yml` and provides:
+The repository contains three main workflows:
+
+1. **Release Workflow** (`.github/workflows/release.yml`): Automated changeset-based releases
+2. **Manual Publishing** (`.github/workflows/publish.yml`): Direct release-triggered publishing  
+3. **Version Management** (`.github/workflows/version.yml`): Manual version bumping
+
+## Changesets Integration
+
+This project uses [Changesets](https://github.com/changesets/changesets) for version management and changelog generation.
+
+### Key Features
+
+- **Manual Version Control**: Explicit changeset files control which packages get version bumps
+- **GitHub Integration**: Automatic changelog generation with GitHub links
+- **Monorepo Support**: Independent versioning for each package
+- **Public Access**: Configured for public npm publishing
+
+### Creating Changesets
+
+To create a changeset for version bumping:
+
+```bash
+# Interactive changeset creation
+npm run changeset
+
+# Or manually create changeset files in .changeset/ directory
+```
+
+### Configuration
+
+Changeset configuration is in `.changeset/config.json`:
+- Uses GitHub changelog format
+- Ignores private packages (`@taskade/example`)
+- Configured for public npm access
+- Base branch: `main`
+
+## Workflows
+
+### 1. Release Workflow (Recommended)
+
+**File**: `.github/workflows/release.yml`
+**Trigger**: Push to `main` branch or manual dispatch
+
+This is the primary workflow that:
+- Automatically detects changesets
+- Creates version PRs when changesets exist
+- Publishes packages when version PRs are merged
+- Publishes to both npmjs.com and GitHub Packages simultaneously
+
+**Usage**:
+```bash
+# Create a changeset
+npm run changeset
+
+# Commit and push to main
+git add .changeset/
+git commit -m "feat: add new feature"
+git push origin main
+
+# The workflow will create a "Version Packages" PR
+# Merge the PR to trigger publishing
+```
+
+### 2. Manual Publishing Workflow
+
+**File**: `.github/workflows/publish.yml`
+**Trigger**: GitHub releases or manual dispatch
+
+Legacy workflow for direct publishing when releases are created:
 
 - **Dual Publishing**: Publishes to both npmjs.com and GitHub Packages
 - **Provenance**: Includes npm provenance for npmjs.com publications
@@ -14,16 +82,62 @@ The workflow is located at `.github/workflows/publish.yml` and provides:
 - **Build Fallbacks**: Continues with esbuild-only build if TypeScript fails
 - **Comprehensive Logging**: Detailed output and summaries
 
+### 3. Version Management Workflow
+
+**File**: `.github/workflows/version.yml`
+**Trigger**: Manual dispatch only
+
+Utility workflow for creating version bump changesets:
+- Creates changesets programmatically
+- Supports patch/minor/major bumps
+- Can target specific packages or all packages
+
+## Migration from Lerna
+
+This repository previously used Lerna for version management. The changeset approach provides:
+
+- **Better Control**: Manual approval of version changes
+- **Clear Intent**: Explicit changesets document what changed
+- **GitHub Integration**: Better changelog generation with links
+- **Flexible Releases**: Independent package versioning
+
+### Lerna Commands (Legacy)
+The following Lerna commands are still available but deprecated:
+```bash
+npm run publish:github    # Lerna conventional commits
+npm run publish:manually  # Direct npm publish
+```
+
+## Quick Start
+
+### For Contributors
+
+1. Make your changes
+2. Create a changeset:
+   ```bash
+   npm run changeset
+   ```
+3. Commit everything including the changeset file
+4. Push to main - a Version PR will be created automatically
+
+### For Maintainers
+
+1. Review and merge the "Version Packages" PR created by the release workflow
+2. Publishing happens automatically after merge
+3. Monitor the Actions tab for publishing status
+
 ## Triggers
 
-### Automatic (Release)
-The workflow runs automatically when:
-- A GitHub release is published
-- Publishes the current version to both registries
+### Automatic (Release Workflow)
+The release workflow runs automatically when:
+- Code is pushed to `main` branch
+- Creates version PRs for unreleased changesets
+- Publishes when version PRs are merged
 
-### Manual (Workflow Dispatch)
-The workflow can be triggered manually with:
-- Optional dry-run mode (no actual publishing)
+### Manual (Publishing Workflow)
+The legacy publish workflow can be triggered manually:
+- GitHub release publication
+- Manual workflow dispatch with optional dry-run
 - Use GitHub UI: Actions → Publish Packages → Run workflow
 - Use GitHub CLI: `gh workflow run publish.yml --input dry_run=true`
 

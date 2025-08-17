@@ -1,0 +1,85 @@
+name: Version Packages
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_type:
+        description: 'Version bump type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      package:
+        description: 'Package to version (leave empty for all changed packages)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts
+
+      - name: Create changeset
+        run: |
+          if [ -n "${{ github.event.inputs.package }}" ]; then
+            echo "Creating changeset for specific package: ${{ github.event.inputs.package }}"
+            cat > .changeset/version-bump.md << EOF
+          ---
+          "${{ github.event.inputs.package }}": ${{ github.event.inputs.version_type }}
+          ---
+          
+          Manual version bump via GitHub Actions
+          EOF
+          else
+            echo "Creating changeset for all packages"
+            cat > .changeset/version-bump.md << EOF
+          ---
+          "@taskade/eslint-plugin": ${{ github.event.inputs.version_type }}
+          ---
+          
+          Manual version bump via GitHub Actions
+          EOF
+          fi
+
+      - name: Apply version changes
+        run: npm run changeset:version
+
+      - name: Commit and create PR
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          
+          # Create a new branch
+          BRANCH_NAME="changeset/version-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH_NAME"
+          
+          # Add changes
+          git add .
+          git commit -m "chore: version packages (${{ github.event.inputs.version_type }})"
+          
+          # Push branch
+          git push origin "$BRANCH_NAME"
+          
+          # Create PR (requires gh CLI or use API)
+          echo "Branch $BRANCH_NAME created with version changes"
+          echo "Please create a PR manually or use the GitHub CLI to create one"
