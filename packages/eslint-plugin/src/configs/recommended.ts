@@ -16,6 +16,7 @@ export default {
     '@typescript-eslint/no-shadow': 'warn',
     // NOTE :(stan@taskade.com) Commented away due to additional configuration (`parserOptions.project`) needed.
     // '@typescript-eslint/strict-boolean-expressions': 'error',
+    // '@typescript-eslint/no-floating-promises': 'error',
     curly: ['error', 'all'],
     eqeqeq: ['error', 'always', { null: 'never' }],
     'no-implicit-coercion': 'error',
