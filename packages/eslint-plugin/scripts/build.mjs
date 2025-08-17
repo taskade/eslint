@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-import { build } from 'esbuild';
 import * as fs from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+
+import { build } from 'esbuild';
 
 async function main() {
   // Clean dist directory
   await fs.rm('dist', { recursive: true, force: true });
-  
+
   // Shared build options
   const sharedOptions = {
     entryPoints: ['src/index.ts'],

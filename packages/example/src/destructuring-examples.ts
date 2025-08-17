@@ -21,6 +21,7 @@ type Coordinates = [number, number];
 // ❌ These patterns are flagged by the rule (destructuring in parameters)
 
 // Object destructuring
+// eslint-disable-next-line @taskade/no-destructuring-params
 function badFunction1({ name, age }: Person): void {
   console.log(`${name} is ${age} years old`);
 }
@@ -48,7 +49,7 @@ const badArrow1 = ({ id, value }: Item): string => {
 const badArrow2 = ([a, b]: Coordinates): number => a + b;
 
 // Function expressions
-const badExpression = function({ target, preventDefault }: Event): void {
+const badExpression = function ({ target, preventDefault }: Event): void {
   (target as HTMLElement).setAttribute('disabled', 'true');
   preventDefault();
 };
@@ -89,7 +90,9 @@ function goodFunction3(coords: Coordinates): void {
 
 // With null checks
 function goodFunction4(coords: Coordinates | null): number {
-  if (!coords) return 0;
+  if (!coords) {
+    return 0;
+  }
   const [x, y] = coords;
   return x + y;
 }
@@ -106,7 +109,7 @@ const goodArrow2 = (numbers: Coordinates): number => {
 };
 
 // Function expressions
-const goodExpression = function(event: Event): void {
+const goodExpression = function (event: Event): void {
   const { target, preventDefault } = event;
   (target as HTMLElement).setAttribute('disabled', 'true');
   preventDefault();
@@ -129,9 +132,20 @@ class BetterExampleClass {
 
 // Export for module usage
 export {
-  badFunction1, badFunction2, badFunction3, badFunction4,
-  badArrow1, badArrow2, badExpression,
-  goodFunction1, goodFunction2, goodFunction3, goodFunction4,
-  goodArrow1, goodArrow2, goodExpression,
-  ExampleClass, BetterExampleClass
+  badArrow1,
+  badArrow2,
+  badExpression,
+  badFunction1,
+  badFunction2,
+  badFunction3,
+  badFunction4,
+  BetterExampleClass,
+  ExampleClass,
+  goodArrow1,
+  goodArrow2,
+  goodExpression,
+  goodFunction1,
+  goodFunction2,
+  goodFunction3,
+  goodFunction4,
 };

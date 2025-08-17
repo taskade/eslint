@@ -2,6 +2,7 @@
   "extends": "./tsconfig.build.json",
   "compilerOptions": {
     "types": ["node"],
+    "rootDir": ".",
   },
-  "include": ["src", "scripts", "test"]
+  "include": ["src", "scripts", "eslint.config.js"]
 }

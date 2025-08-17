@@ -10,7 +10,8 @@ export const rule: Rule.RuleModule = {
     fixable: undefined,
     schema: [],
     messages: {
-      noDestructuringParams: 'Avoid destructuring in function parameters. Consider using a regular parameter and destructuring inside the function body instead.',
+      noDestructuringParams:
+        'Avoid destructuring in function parameters. Consider using a regular parameter and destructuring inside the function body instead.',
     },
   },
   create(context: Rule.RuleContext) {
@@ -25,8 +26,10 @@ export const rule: Rule.RuleModule = {
             });
           }
           // Check for destructuring with default values (AssignmentPattern)
-          else if (param.type === 'AssignmentPattern' && 
-                   (param.left.type === 'ObjectPattern' || param.left.type === 'ArrayPattern')) {
+          else if (
+            param.type === 'AssignmentPattern' &&
+            (param.left.type === 'ObjectPattern' || param.left.type === 'ArrayPattern')
+          ) {
             context.report({
               node: param,
               messageId: 'noDestructuringParams',

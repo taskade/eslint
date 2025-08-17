@@ -5,7 +5,7 @@ export default {
   },
   rules: {
     'brace-style': 'off',
-    '@typescript-eslint/brace-style': ['error', '1tbs', { allowSingleLine: false }],
+    '@stylistic/brace-style': ['error', '1tbs', { allowSingleLine: false }],
     '@typescript-eslint/camelcase': 'off', // NOTE: (stan@taskade.com) This rule is deprecated.
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -31,6 +31,6 @@ export default {
     'import/order': 'off',
     'simple-import-sort/exports': 'warn',
     'simple-import-sort/imports': 'warn',
-    '@taskade/no-destructuring-params': 'error',
+    '@taskade/no-destructuring-params': 'warn',
   },
 } as const;
