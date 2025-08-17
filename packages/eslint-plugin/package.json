@@ -1,6 +1,6 @@
 {
   "name": "@taskade/eslint-plugin",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "type": "module",
   "description": "ESLint plugin for Taskade",
   "main": "dist/index.cjs",
