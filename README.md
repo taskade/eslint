@@ -6,6 +6,17 @@
 npm install --save-dev @taskade/eslint-plugin
 ```
 
+## Contributing
+
+This project uses [Changesets](https://github.com/changesets/changesets) for version management. When contributing:
+
+1. Make your changes
+2. Run `npm run changeset` to create a changeset
+3. Commit both your changes and the changeset file
+4. Push to `main` - a version PR will be created automatically
+
+See [`.changeset/USAGE.md`](./.changeset/USAGE.md) for detailed changeset usage instructions.
+
 ## To Develop
 
 ```sh
@@ -13,6 +24,10 @@ npm run build:watch
 ```
 
 Go to `packages/example` and test out the ESLint rules
+
+## Publishing
+
+Packages are automatically published to both npmjs.com and GitHub Packages when changeset version PRs are merged. See [`.github/PUBLISH_WORKFLOW.md`](./.github/PUBLISH_WORKFLOW.md) for details.
 
 ## Additional Configurations Recommended
 

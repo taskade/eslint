@@ -1,0 +1,147 @@
+name: Release with Changesets
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies (no postinstall)
+        run: npm ci --ignore-scripts
+
+      - name: Build packages
+        run: npm run build
+        continue-on-error: false
+
+      - name: Build fallback (esbuild only)
+        if: failure()
+        run: |
+          echo "Full build failed, attempting esbuild-only build..."
+          cd packages/eslint-plugin
+          node scripts/build.mjs
+          echo "esbuild completed successfully"
+
+      - name: Create Release Pull Request or Publish
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          version: npm run changeset:version
+          publish: npm run changeset:publish
+          title: "chore: version packages"
+          commit: "chore: version packages"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          echo "Publishing to GitHub Packages..."
+          # Configure npm to publish to GitHub Packages
+          npm config set @taskade:registry https://npm.pkg.github.com/
+          npm config set //npm.pkg.github.com/:_authToken ${{ secrets.GITHUB_TOKEN }}
+          
+          # Publish each package to GitHub Packages
+          for package_dir in packages/*/; do
+            if [ -f "${package_dir}package.json" ] && [ -d "${package_dir}dist" ]; then
+              package_name=$(node -p "require('./${package_dir}package.json').name")
+              if [ "$package_name" != "@taskade/example" ]; then
+                echo "Publishing $package_name to GitHub Packages..."
+                cd "$package_dir"
+                
+                # Ensure publishConfig points to GitHub Packages
+                npm pkg set publishConfig.registry=https://npm.pkg.github.com/
+                
+                # Publish to GitHub Packages
+                npm publish --registry=https://npm.pkg.github.com/
+                cd - > /dev/null
+                echo "✅ Published $package_name to GitHub Packages"
+              fi
+            fi
+          done
+
+      - name: Publish to npmjs.com
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          echo "Publishing to npmjs.com..."
+          # Configure npm for npmjs.com
+          npm config set registry https://registry.npmjs.org/
+          npm config set //registry.npmjs.org/:_authToken ${{ secrets.NPM_TOKEN }}
+          
+          # Publish each package to npmjs.com
+          for package_dir in packages/*/; do
+            if [ -f "${package_dir}package.json" ] && [ -d "${package_dir}dist" ]; then
+              package_name=$(node -p "require('./${package_dir}package.json').name")
+              package_version=$(node -p "require('./${package_dir}package.json').version")
+              
+              if [ "$package_name" != "@taskade/example" ]; then
+                echo "Checking if $package_name@$package_version exists on npmjs.com..."
+                
+                # Check if version already exists
+                if npm view "$package_name@$package_version" version 2>/dev/null; then
+                  echo "⚠️  Version $package_version of $package_name already exists on npmjs.com, skipping..."
+                  continue
+                fi
+                
+                echo "Publishing $package_name@$package_version to npmjs.com..."
+                cd "$package_dir"
+                
+                # Temporarily remove GitHub Packages config
+                npm pkg delete publishConfig.registry
+                
+                # Publish to npmjs.com with provenance
+                npm publish --access public --provenance --registry=https://registry.npmjs.org/
+                
+                # Restore GitHub Packages config
+                npm pkg set publishConfig.registry=https://npm.pkg.github.com/
+                
+                cd - > /dev/null
+                echo "✅ Published $package_name@$package_version to npmjs.com"
+              fi
+            fi
+          done
+
+      - name: Summary
+        if: steps.changesets.outputs.published == 'true'
+        run: |
+          echo "## 🎉 Release Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The following packages were published:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          for package_dir in packages/*/; do
+            if [ -f "${package_dir}package.json" ] && [ -d "${package_dir}dist" ]; then
+              package_name=$(node -p "require('./${package_dir}package.json').name")
+              package_version=$(node -p "require('./${package_dir}package.json').version")
+              if [ "$package_name" != "@taskade/example" ]; then
+                echo "- **$package_name@$package_version**" >> $GITHUB_STEP_SUMMARY
+              fi
+            fi
+          done
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Published to:" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ npmjs.com" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ GitHub Packages" >> $GITHUB_STEP_SUMMARY
