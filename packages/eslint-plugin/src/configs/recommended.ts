@@ -31,5 +31,6 @@ export default {
     'import/order': 'off',
     'simple-import-sort/exports': 'warn',
     'simple-import-sort/imports': 'warn',
+    '@taskade/no-destructuring-params': 'error',
   },
 } as const;

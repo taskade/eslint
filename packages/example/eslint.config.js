@@ -28,6 +28,8 @@ export default [
       // Use only the basic rules from our plugin for now
       ...taskadePlugin.configs.base.rules,
       '@typescript-eslint/strict-boolean-expressions': 'error',
+      // Add our new rule for testing
+      '@taskade/no-destructuring-params': 'error',
     },
   },
 ];

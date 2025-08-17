@@ -110,7 +110,11 @@ Base configuration with Prettier and React support.
 Base configuration with Prettier support but without React dependencies. Ideal for Node.js projects, libraries, or any TypeScript/JavaScript projects that don't use React.
 
 ### recommended  
-Additional TypeScript and import sorting rules for enhanced code quality.
+Additional TypeScript and import sorting rules for enhanced code quality. **Includes custom Taskade rules**.
+
+#### Custom Rules in Recommended Configuration
+
+- **`@taskade/no-destructuring-params`** - Disallows destructuring in function parameters to avoid complexity and potential runtime errors with `null` values. Encourages using regular parameters with optional chaining instead.
 
 ## Migrating from ESLint v8
 
@@ -120,3 +124,57 @@ If you're upgrading from ESLint v8, you'll need to:
 2. Use the flat config format shown above
 3. Install the required dependencies: `@eslint/js`, `typescript-eslint`, `globals`
 4. Update your plugins to use object syntax instead of string arrays
+
+## Custom Rules
+
+### @taskade/no-destructuring-params
+
+Disallows destructuring in function parameters. This rule helps avoid complexity and potential runtime errors that can occur with destructuring parameters, especially when dealing with `null` values.
+
+#### ❌ Incorrect
+
+```javascript
+function foo({ bar = true } = {}) {
+  return bar;
+}
+
+const handleEvent = ({ target, preventDefault }) => {
+  preventDefault();
+  console.log(target);
+};
+
+class MyClass {
+  processData({ id, value }) {
+    // ...
+  }
+}
+```
+
+#### ✅ Correct
+
+```javascript
+function foo(options) {
+  const bar = options?.bar ?? true;
+  return bar;
+}
+
+const handleEvent = (event) => {
+  const { target, preventDefault } = event;
+  preventDefault();
+  console.log(target);
+};
+
+class MyClass {
+  processData(data) {
+    const { id, value } = data;
+    // ...
+  }
+}
+```
+
+#### Rationale
+
+1. **Clarity**: Regular parameters are easier to understand and debug
+2. **Null Safety**: Using optional chaining (`?.`) and nullish coalescing (`??`) handles `null`/`undefined` values more predictably
+3. **Performance**: Avoids implicit object creation when default parameters are used
+4. **TypeScript Compatibility**: Works better with strict null checks
