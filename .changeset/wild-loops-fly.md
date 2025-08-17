@@ -2,4 +2,4 @@
 "@taskade/eslint-plugin": minor
 ---
 
-Add @typescript-eslint/no-floating-promises rule to recommended configuration
+fix: Add @typescript-eslint/no-floating-promises rule to recommended configuration (#17)
