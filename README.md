@@ -37,10 +37,15 @@ Packages are automatically published to both npmjs.com and GitHub Packages when 
 
 Not on by default due to additional configuration (`parserOptions.project`) needed.
 
+### [`@typescript-eslint/no-floating-promises`](https://typescript-eslint.io/rules/no-floating-promises/)
+
+Requires promises to be handled properly (awaited, returned, or explicitly handled). Not on by default due to additional configuration (`parserOptions.project`) needed.
+
 ```json
 {
   "rules": {
-    "@typescript-eslint/strict-boolean-expressions": "error"
+    "@typescript-eslint/strict-boolean-expressions": "error",
+    "@typescript-eslint/no-floating-promises": "error"
   },
   "parserOptions": {
     "project": "tsconfig.json"
